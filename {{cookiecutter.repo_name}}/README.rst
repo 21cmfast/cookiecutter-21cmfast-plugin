@@ -1,7 +1,6 @@
 ========
 Overview
 ========
-{% if cookiecutter.repo_hosting_domain == "github.com" %}
 .. start-badges
 
 .. list-table::
@@ -11,24 +10,13 @@ Overview
       - |docs|
 {%- endif %}
     * - tests
-      - | {%- if cookiecutter.travis == 'yes' %} |travis|{% endif -%}
-          {%- if cookiecutter.appveyor == 'yes' %} |appveyor|{% endif -%}
-          {%- if cookiecutter.requiresio == 'yes' %} |requires|{% endif -%}
+          |codecov|
         {{ '' }}
-        | {%- if cookiecutter.coveralls == 'yes' %} |coveralls|{% endif -%}
-          {%- if cookiecutter.codecov == 'yes' %} |codecov|{% endif -%}
-        {{ '' }}
-        {%- if cookiecutter.scrutinizer == 'yes' or cookiecutter.codacy == 'yes' or cookiecutter.codeclimate == 'yes' %}
-        | {%- if cookiecutter.scrutinizer == 'yes' %} |scrutinizer|{% endif -%}
-          {%- if cookiecutter.codacy == 'yes' %} |codacy|{% endif -%}
-          {%- if cookiecutter.codeclimate == 'yes' %} |codeclimate|{% endif -%}
-        {%- endif -%}
 {{ '' }}
-{%- if cookiecutter.pypi_badge == "yes" or cookiecutter.repo_hosting_domain == "github.com" %}
     * - package
       - {% if cookiecutter.pypi_badge == "yes" %}| |version| |wheel| |supported-versions| |supported-implementations|
         {{ '' }}{% endif %}
-        {%- if cookiecutter.repo_hosting_domain == "github.com" %}| |commits-since|{% endif %}
+        |commits-since|
 {%- endif %}
 {{ '' }}
 {%- if cookiecutter.sphinx_docs == "yes" -%}
@@ -36,33 +24,6 @@ Overview
 .. |docs| image:: https://readthedocs.org/projects/{{ cookiecutter.repo_name }}/badge/?style=flat
     :target: https://{{ cookiecutter.repo_name|replace('.', '') }}.readthedocs.io/
     :alt: Documentation Status
-{%- elif 'gitlab' in cookiecutter.sphinx_docs_hosting and 'gitlab' in cookiecutter.repo_hosting_domain -%}
-.. |docs| image:: https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/badges/master/pipeline.svg
-    :target: https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name|replace('.', '') }}/commits/master
-    :alt: Documentation Status
-{% endif %}
-{% endif %}
-{%- if cookiecutter.travis == 'yes' %}
-.. |travis| image:: https://api.travis-ci.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}.svg?branch=master
-    :alt: Travis-CI Build Status
-    :target: https://travis-ci.com{% if cookiecutter.repo_hosting == 'github.com' %}/github
-                                  {%- elif cookiecutter.repo_hosting == 'gitlab.com' %}/gitlab
-                                  {%- endif %}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}
-{% endif %}
-{%- if cookiecutter.appveyor == 'yes' %}
-.. |appveyor| image:: https://ci.appveyor.com/api/projects/status/github/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}?branch=master&svg=true
-    :alt: AppVeyor Build Status
-    :target: https://ci.appveyor.com/project/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}
-{% endif %}
-{%- if cookiecutter.requiresio == 'yes' %}
-.. |requires| image:: https://requires.io/github/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/requirements.svg?branch=master
-    :alt: Requirements Status
-    :target: https://requires.io/github/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/requirements/?branch=master
-{% endif %}
-{%- if cookiecutter.coveralls == 'yes' %}
-.. |coveralls| image:: https://coveralls.io/repos/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/badge.svg?branch=master&service=github
-    :alt: Coverage Status
-    :target: https://coveralls.io/r/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}
 {% endif %}
 {%- if cookiecutter.codecov == 'yes' %}
 .. |codecov| image:: https://codecov.io/gh/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/branch/master/graphs/badge.svg?branch=master
@@ -96,23 +57,15 @@ Overview
     :alt: Supported implementations
     :target: https://pypi.org/project/{{ cookiecutter.distribution_name }}
 {% endif %}
-{%- if cookiecutter.repo_hosting_domain == "github.com" %}
 .. |commits-since| image:: https://img.shields.io/github/commits-since/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/v{{ cookiecutter.version }}.svg
     :alt: Commits since latest release
     :target: https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/compare/v{{ cookiecutter.version }}...master
-{% endif %}
-{% if cookiecutter.scrutinizer == 'yes' %}
-.. |scrutinizer| image:: https://img.shields.io/scrutinizer/quality/g/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/master.svg
-    :alt: Scrutinizer Status
-    :target: https://scrutinizer-ci.com/g/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/
-{% endif %}
 
 .. end-badges
-{% endif %}
-{{ cookiecutter.project_short_description|wordwrap(119) }}
-{% if cookiecutter.license != "no" %}
+
+{{ cookiecutter.project_short_description|wordwrap(100) }}
 * Free software: {{ cookiecutter.license }}
-{% endif %}
+
 Installation
 ============
 
@@ -121,13 +74,7 @@ Installation
     pip install {{ cookiecutter.distribution_name }}
 
 You can also install the in-development version with::
-{% if cookiecutter.repo_hosting_domain == "github.com" %}
     pip install https://github.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/archive/master.zip
-{% elif cookiecutter.repo_hosting_domain == "gitlab.com" %}
-    pip install https://gitlab.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/-/archive/master/{{ cookiecutter.repo_name }}-master.zip
-{% else %}
-    pip install git+ssh://git@{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}.git@master
-{%- endif %}
 
 Documentation
 =============
@@ -146,23 +93,6 @@ To use the project:
 Development
 ===========
 
-To run all the tests run::
+Clone the repo and install with::
 
-    tox
-
-Note, to combine the coverage data from all the tox environments run:
-
-.. list-table::
-    :widths: 10 90
-    :stub-columns: 1
-
-    - - Windows
-      - ::
-
-            set PYTEST_ADDOPTS=--cov-append
-            tox
-
-    - - Other
-      - ::
-
-            PYTEST_ADDOPTS=--cov-append tox
+    pip install -e {{  cookiecutter.distribution_name }}[dev]

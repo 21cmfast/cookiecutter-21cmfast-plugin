@@ -4,14 +4,14 @@ from __future__ import unicode_literals
 {% if cookiecutter.sphinx_theme == 'sphinx-rtd-theme' -%}
 import os
 {% endif -%}
-{%- if cookiecutter.setup_py_uses_setuptools_scm == 'yes' -%}
 import traceback
-{% endif -%}
 {%- if cookiecutter.sphinx_theme != 'sphinx-rtd-theme' -%}
 import {{ cookiecutter.sphinx_theme|replace('-', '_') }}
 {% endif %}
+
 extensions = [
     'sphinx.ext.autodoc',
+    "sphinx.ext.intersphinx",
     'sphinx.ext.autosummary',
     'sphinx.ext.coverage',
     'sphinx.ext.doctest',
@@ -20,6 +20,11 @@ extensions = [
     'sphinx.ext.napoleon',
     'sphinx.ext.todo',
     'sphinx.ext.viewcode',
+    "sphinx.ext.mathjax",
+    "sphinx.ext.autosectionlabel",
+    "numpydoc",
+    "nbsphinx",
+    "IPython.sphinxext.ipython_console_highlighting",
 ]
 source_suffix = '.rst'
 master_doc = 'index'
@@ -27,19 +32,15 @@ project = {{ '{0!r}'.format(cookiecutter.project_name) }}
 year = '{% if cookiecutter.year_from == cookiecutter.year_to %}{{ cookiecutter.year_from }}{% else %}{{ cookiecutter.year_from }}-{{ cookiecutter.year_to }}{% endif %}'
 author = {{ '{0!r}'.format(cookiecutter.full_name) }}
 copyright = '{0}, {1}'.format(year, author)
-{%- if cookiecutter.setup_py_uses_setuptools_scm == 'yes' %}
 try:
     from pkg_resources import get_distribution
     version = release = get_distribution('{{ cookiecutter.package_name }}').version
 except Exception:
     traceback.print_exc()
     version = release = {{ '{0!r}'.format(cookiecutter.version) }}
-{%- else %}
-version = release = {{ '{0!r}'.format(cookiecutter.version) }}
-{%- endif %}
 
 pygments_style = 'trac'
-templates_path = ['.']
+templates_path = ['_templates']
 extlinks = {
     'issue': ('https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/issues/%s', '#'),
     'pr': ('https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/pull/%s', 'PR #'),
@@ -70,3 +71,32 @@ html_short_title = '%s-%s' % (project, version)
 napoleon_use_ivar = True
 napoleon_use_rtype = False
 napoleon_use_param = False
+
+
+autosectionlabel_prefix_document = True
+
+autosummary_generate = True
+numpydoc_show_class_members = False
+
+
+exclude_patterns = [
+    "_build",
+    "Thumbs.db",
+    ".DS_Store",
+    "templates",
+    "**.ipynb_checkpoints",
+]
+
+# -- External mapping ------------------------------------------------------------
+python_version = ".".join(map(str, sys.version_info[0:2]))
+intersphinx_mapping = {
+    "sphinx": ("https://www.sphinx-doc.org/en/master", None),
+    "python": ("https://docs.python.org/" + python_version, None),
+    "matplotlib": ("https://matplotlib.org", None),
+    "numpy": ("https://numpy.org/doc/stable/", None),
+    "sklearn": ("https://scikit-learn.org/stable", None),
+    "pandas": ("https://pandas.pydata.org/pandas-docs/stable", None),
+    "scipy": ("https://docs.scipy.org/doc/scipy/reference", None),
+    "21cmfast": ("https://21cmfast.readthedocs.io/en/latest/", None),
+    "21cmmc": ("https://21cmmc.readthedocs.io/en/latest/", None),   
+}

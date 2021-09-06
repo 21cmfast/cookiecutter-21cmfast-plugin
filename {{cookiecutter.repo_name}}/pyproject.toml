@@ -1,11 +1,9 @@
 [build-system]
 requires = [
-    "setuptools>=30.3.0",
-    "wheel",
-{%- if cookiecutter.setup_py_uses_setuptools_scm == 'yes' %}
-    "setuptools_scm>=3.3.1{% if cookiecutter.legacy_python == 'yes' %},<6.0{% endif %}",
-{%- endif %}
-{%- if cookiecutter.c_extension_support == 'cffi' %}
+    "setuptools>=45", 
+    "wheel", 
+    "setuptools_scm>=6.2"
+{%- if cookiecutter.c_extension_support == 'yes' %}
     "cffi>=1.0.0",
 {%- endif %}
 ]

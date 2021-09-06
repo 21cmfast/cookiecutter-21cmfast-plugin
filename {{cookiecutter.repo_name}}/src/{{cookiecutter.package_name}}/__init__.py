@@ -1,5 +1,12 @@
-__version__ = '{{ cookiecutter.version }}'
-{%- if cookiecutter.c_extension_support == 'cffi' %}
+from importlib.metadata import version, PackageNotFoundError
+
+try:
+    __version__ = version("{{ cookiecutter.package_name }}")
+except PackageNotFoundError:
+    # package is not installed
+    pass
+
+{%- if cookiecutter.c_extension_support == 'yes' %}
 
 from .{{ cookiecutter.c_extension_module }} import ffi as _ffi
 from .{{ cookiecutter.c_extension_module }} import lib as _lib
@@ -12,7 +19,7 @@ def {{ cookiecutter.c_extension_function }}(args):
         return ''
     else:
         return _ffi.string(result)
-{%- elif cookiecutter.c_extension_support != 'no' %}
+
 {%- if cookiecutter.c_extension_optional == 'yes' %}
 try:
     from .{{ cookiecutter.c_extension_module }} import {{ cookiecutter.c_extension_function }}  # noqa

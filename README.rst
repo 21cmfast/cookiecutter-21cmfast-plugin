@@ -1,85 +1,37 @@
-======================
-cookiecutter-pylibrary
-======================
+============================
+cookiecutter-21cmfast-plugin
+============================
 
-Cookiecutter_ template for a Python library. |travis| |appveyor| |requiresio|
-
-.. |travis| image:: https://img.shields.io/travis/com/ionelmc/cookiecutter-pylibrary?label=Travis
-    :alt: Travis-CI Build Status
-    :target: https://travis-ci.com/github/ionelmc/cookiecutter-pylibrary
-
-.. |appveyor| image:: https://img.shields.io/appveyor/build/ionelmc/cookiecutter-pylibrary/master?label=AppVeyor
-    :alt: AppVeyor Build Status
-    :target: https://ci.appveyor.com/project/ionelmc/cookiecutter-pylibrary
-
-.. |requiresio| image:: https://requires.io/github/ionelmc/cookiecutter-pylibrary/requirements.svg?branch=master
-     :target: https://requires.io/github/ionelmc/cookiecutter-pylibrary/requirements/?branch=master
-     :alt: Requirements Status
-
-*Notes*:
-
-* This is largely designed to address this `blog post about packaging python
-  libraries <https://blog.ionelmc.ro/2014/05/25/python-packaging/>`_.
-
-  * ... and it will save you from `packaging pitfalls
-    <https://blog.ionelmc.ro/2014/06/25/python-packaging-pitfalls/>`_.
-* There's a bare library using this template (if you're curious about the final
-  result): https://github.com/ionelmc/python-nameless.
-* If you have a web application (not a library) you might want to take a look at
-  `django-docker <https://github.com/evozon/django-docker>`_.
+Cookiecutter_ template for a 21cmFAST/MC plugin. 
 
 .. contents:: Table of Contents
 
 Features
 --------
 
-This is an "all inclusive" sort of template.
+This is an opinionated template that helps code have a consistent style and easy deployment.
 
-* Choice of various licenses.
-* Tox_ for managing test environments for Python 2.7, 3.6+, PyPy etc.
-* Pytest_ or Nose_ for testing Python 2.7, 3.6+, PyPy etc.
-* *Optional* support for creating a tests matrix out of dependencies and python versions.
-* Travis-CI_ and AppVeyor_ for continuous testing.
-* Coveralls_ or Codecov_ for coverage tracking (using Tox_).
+* Pytest_ for testing
+* Github Actions for CI
+* Coveralls_ for code coverage
 * Documentation with Sphinx_, ready for ReadTheDocs_.
-* Configurations for:
-
-  * isort_
-  * bumpversion_ (bump2version_ required)
-
 * Support for C extensions (including coverage measurement for the C code). See c_extension_support_.
-* Packaging and code quality checks. This template comes with a tox environment (``check``) that will:
-
-  * Check if your ``README.rst`` is valid.
-  * Check if the ``MANIFEST.in`` has any issues.
-  * Run ``flake8`` (a combo of PEP8, pyflakes and McCabe checks) or ``pylama``
+* Packaging and code quality checks. 
 
 Requirements
 ------------
 
-Projects using this template have these minimal dependencies:
+Just do::
 
-* Cookiecutter_ - just for creating the project
-* Tox_ - for running the tests
-* Setuptools_ - for building the package, wheels etc. Now-days Setuptools is widely available, it shouldn't pose a
-  problem :)
-
-To get quickly started on a new system, just `install setuptools
-<https://pypi.org/project/setuptools#installation-instructions>`_ and then `install pip
-<https://pip.pypa.io/en/latest/installing.html>`_. That's the bare minimum to required install Tox_ and Cookiecutter_. To install
-them, just run this in your shell or command prompt::
-
-  pip install tox cookiecutter
+  pip install cookiecutter
 
 Usage and options
 -----------------
 
-This template is more involved than the regular `cookiecutter-pypackage
-<https://github.com/audreyr/cookiecutter-pypackage>`_.
-
 First generate your project::
 
-  cookiecutter gh:ionelmc/cookiecutter-pylibrary
+  cookiecutter gh:21cmfast/cookiecutter-21cmfast-plugin
+  
 
 You will be asked for these fields:
 

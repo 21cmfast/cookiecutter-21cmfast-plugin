@@ -49,9 +49,9 @@ To set up `{{ cookiecutter.repo_name }}` for local development:
 
    Now you can make your changes locally.
 
-4. When you're done making changes run all the checks and docs builder with `tox <https://tox.readthedocs.io/en/latest/install.html>`_ one command::
+4. When you're done making changes run all the checks and docs builder with ``pytest``::
 
-    tox
+    pytest
 
 5. Commit your changes and push your branch to GitHub::
 
@@ -72,24 +72,3 @@ For merging, you should:
 2. Update documentation when there's new API, functionality etc.
 3. Add a note to ``CHANGELOG.rst`` about the changes.
 4. Add yourself to ``AUTHORS.rst``.
-
-{% if cookiecutter.travis == 'yes' -%}
-.. [1] If you don't have all the necessary python versions available locally you can rely on Travis - it will
-       `run the tests <https://travis-ci.com/{% if cookiecutter.repo_hosting == 'github.com' %}github/
-                                             {%- elif cookiecutter.repo_hosting == 'gitlab.com' %}gitlab/
-                                             {%- endif %}{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/pull_requests>`_
-       for each change you add in the pull request.
-
-       It will be slower though ...
-{%- endif %}
-
-Tips
-----
-
-To run a subset of tests::
-
-    tox -e envname -- pytest -k test_myfeature
-
-To run all the test environments in *parallel*::
-
-    tox -p auto
