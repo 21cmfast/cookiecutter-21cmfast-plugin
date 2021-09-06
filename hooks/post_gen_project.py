@@ -1,9 +1,7 @@
 from __future__ import print_function
 
-import datetime
 import os
 import shutil
-import subprocess
 import sys
 from os.path import join
 
@@ -26,29 +24,6 @@ def unlink_if_exists(path):
         os.unlink(path)
 
 if __name__ == "__main__":
-{%- if cookiecutter.c_extension_test_pypi == 'yes' %}
-{%- if cookiecutter.test_matrix_separate_coverage == 'no' %}
-    warn("TODO: c_extension_test_pypi=yes will not work with test_matrix_separate_coverage=no for now.")
-    sys.exit(1)
-{%- endif %}
-{%- if cookiecutter.c_extension_support == 'no' %}
-    warn("""
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!!                                                                            !!
-!!      ERROR:                                                                !!
-!!                                                                            !!
-!!          c_extension_test_pypi=yes is designed to build and publish        !!
-!!          platform-specific wheels.                                         !!
-!!                                                                            !!
-!!          You have set c_extension_support=no, and that will make every     !!
-!!          test environment publish duplicated universal wheels.             !!
-!!                                                                            !!
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-""")
-    sys.exit(1)
-{%- endif %}
-{%- endif %}
-
 {% if cookiecutter.sphinx_docs == "no" %}
     shutil.rmtree('docs')
     os.unlink('.readthedocs.yml')
@@ -61,14 +36,11 @@ if __name__ == "__main__":
     os.unlink(join('src', '{{ cookiecutter.package_name }}', 'cli.py'))
 {% endif %}
 
-{%- if cookiecutter.c_extension_support == 'no' %}
+{% if cookiecutter.c_extension_support == 'no' %}
     os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}.c'))
     os.unlink(join('src', '{{ cookiecutter.package_name }}', '{{ cookiecutter.c_extension_module }}_build.py'))
-{%- endif -%}
-
-{%- if cookiecutter.repo_hosting == 'no' %}
-    os.unlink('CONTRIBUTING.rst')
 {% endif %}
+
 
     print("""
 ################################################################################
@@ -94,22 +66,22 @@ if __name__ == "__main__":
         git add --all
         git commit -m "Add initial project skeleton."
         git tag v{{ cookiecutter.version }}
-        git remote add origin git@{{ cookiecutter.repo_hosting_domain }}:{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}.git
+        git remote add origin git@github.com:{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}.git
         git push -u origin master v{{ cookiecutter.version }}
 
     Then make a new isolated Python environment and then run
 
         pip install -e .[dev]
         pre-commit install
-    {%- if cookiecutter.use_commitizen -%}
+    {%- if cookiecutter.use_commitizen %}
         pre-commit install --hook-type commit-msg
-    {%- endif -%}
+    {%- endif %}
         pre-commit run -a
 
-    {%- if 'readthedocs' in cookiecutter.sphinx_docs_hosting -%}
+    {% if 'readthedocs' in cookiecutter.sphinx_docs_hosting %}
     To host your documentation on RTD, you need to import your project at
     https://readthedocs.org/dashboard/import/?
-    {%- endif -%}
+    {%- endif %}
 
     To automatically deploy to PyPI and TestPyPI in your CI, you'll need to get a 
     PyPI/TestPyPI token here: https://test.pypi.org/manage/account/token/ and then

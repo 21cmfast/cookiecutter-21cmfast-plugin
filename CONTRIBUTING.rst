@@ -35,7 +35,7 @@ If you are proposing a feature:
 Development
 ===========
 
-To set up `cookiecutter-pylibrary` for local development:
+To set up ```cookiecutter-pylibrary``` for local development:
 
 1. `Fork cookiecutter-pylibrary on GitHub <https://github.com/ionelmc/cookiecutter-pylibrary/fork>`_.
 2. Clone your fork locally::

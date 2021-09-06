@@ -3,12 +3,10 @@
     "email": "21cmfast.admin@gmail.com",
     "website": "https://github.com/21cmfast",
     "project_name": "Nameless",
-    "repo_name": "python-{{ cookiecutter.project_name|lower|replace(' ','-') }}",
-    "repo_hosting": ["github.com", "gitlab.com", "other domain not listed"],
-    "repo_hosting_domain": "{{ cookiecutter.repo_hosting if cookiecutter.repo_hosting != 'other domain not listed' else '' }}",
+    "repo_name": "{{ cookiecutter.project_name|lower|replace(' ','-') }}",
     "repo_username": "21cmfast",
-    "package_name": "{{ cookiecutter.project_name|lower|replace(' ','_')|replace('-','_') }}",
-    "distribution_name": "{{ cookiecutter.package_name|replace('_','-') }}",
+    "package_name": "{{ cookiecutter.project_name|lower|replace(' ','_')|replace('-','_')|replace('21cmfast_','')|replace('21cmmc_','') }}",
+    "distribution_name": "{{ cookiecutter.project_name|lower|replace('_','-')|replace(' ', '-') }}",
     "project_short_description": "A 21cmMC plugin for doing XXX.",
     "release_date": "today",
     "year_from": "{% now 'utc', '%Y' %}",
@@ -19,16 +17,16 @@
     "c_extension_support": ["no", "yes"],
     "c_extension_optional": ["no", "yes"],
     "c_extension_module": "_{{ cookiecutter.package_name }}",
-    "c_extension_function": "longest",
-    "c_extension_test_pypi_username": "{{ cookiecutter.repo_username }}",
     "pypi_badge": ["yes", "no"],
+    "command_line_interface": ["no", "yes"],
     "command_line_interface_bin_name": "{{ cookiecutter.distribution_name }}",
-    "codacy" : ["no", "yes"],
-    "codacy_projectid" : "[Get ID from https://app.codacy.com/gh/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/settings]",
     "codeclimate" : ["no", "yes"],
     "sphinx_docs": ["yes", "no"],
     "sphinx_theme": ["sphinx-rtd-theme", "sphinx-py3doc-enhanced-theme"],
     "sphinx_doctest": ["no", "yes"],
     "sphinx_docs_hosting": "https://{{ cookiecutter.repo_name|replace('.', '') }}.readthedocs.io/",
-    "_extensions": ["jinja2_time.TimeExtension"]
+    "_extensions": ["jinja2_time.TimeExtension"],
+    "_copy_without_render": [
+        "docs/_templates/*.rst", "ci/*.yaml"
+    ]
 }

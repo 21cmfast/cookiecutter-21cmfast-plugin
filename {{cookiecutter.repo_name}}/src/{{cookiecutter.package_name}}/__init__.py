@@ -12,9 +12,9 @@ from .{{ cookiecutter.c_extension_module }} import ffi as _ffi
 from .{{ cookiecutter.c_extension_module }} import lib as _lib
 
 
-def {{ cookiecutter.c_extension_function }}(args):
+def my_c_function(args):
     args = [_ffi.new('char[]', arg) for arg in args]
-    result = _lib.{{ cookiecutter.c_extension_function }}(len(args), _ffi.new('char *[]', args))
+    result = _lib.my_c_function(len(args), _ffi.new('char *[]', args))
     if result == _ffi.NULL:
         return ''
     else:
@@ -22,11 +22,11 @@ def {{ cookiecutter.c_extension_function }}(args):
 
 {%- if cookiecutter.c_extension_optional == 'yes' %}
 try:
-    from .{{ cookiecutter.c_extension_module }} import {{ cookiecutter.c_extension_function }}  # noqa
+    from .{{ cookiecutter.c_extension_module }} import my_c_function  # noqa
 except ImportError:
     def {{ cookiecutter.c_extension_function }}(args):
         return max(args, key=len)
 {%- else %}
-from .{{ cookiecutter.c_extension_module }} import {{ cookiecutter.c_extension_function }}  # noqa
+from .{{ cookiecutter.c_extension_module }} import my_c_function  # noqa
 {%- endif %}
 {%- endif %}

@@ -5,7 +5,7 @@ from cffi import FFI
 
 ffi = FFI()
 ffi.cdef('''
-    char* {{ cookiecutter.c_extension_function }}(int argv, char *argv[]);
+    char* my_c_function();
 ''')
 
 ffi.set_source(

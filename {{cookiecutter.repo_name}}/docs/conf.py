@@ -42,15 +42,15 @@ except Exception:
 pygments_style = 'trac'
 templates_path = ['_templates']
 extlinks = {
-    'issue': ('https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/issues/%s', '#'),
-    'pr': ('https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/pull/%s', 'PR #'),
+    'issue': ('https://github.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/issues/%s', '#'),
+    'pr': ('https://github.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/pull/%s', 'PR #'),
 }
 
 {%- if cookiecutter.sphinx_theme != 'sphinx-rtd-theme' %}
 html_theme = "{{ cookiecutter.sphinx_theme|replace('-', '_') }}"
 html_theme_path = [{{ cookiecutter.sphinx_theme|replace('-', '_') }}.get_html_theme_path()]
 html_theme_options = {
-    'githuburl': 'https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/'
+    'githuburl': 'https://github.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/'
 }
 {%- else %}
 # on_rtd is whether we are on readthedocs.org

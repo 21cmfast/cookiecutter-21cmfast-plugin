@@ -17,7 +17,6 @@ Overview
       - {% if cookiecutter.pypi_badge == "yes" %}| |version| |wheel| |supported-versions| |supported-implementations|
         {{ '' }}{% endif %}
         |commits-since|
-{%- endif %}
 {{ '' }}
 {%- if cookiecutter.sphinx_docs == "yes" -%}
 {%- if 'readthedocs' in cookiecutter.sphinx_docs_hosting -%}
@@ -25,16 +24,10 @@ Overview
     :target: https://{{ cookiecutter.repo_name|replace('.', '') }}.readthedocs.io/
     :alt: Documentation Status
 {% endif %}
-{%- if cookiecutter.codecov == 'yes' %}
+{% endif %}
 .. |codecov| image:: https://codecov.io/gh/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/branch/master/graphs/badge.svg?branch=master
     :alt: Coverage Status
     :target: https://codecov.io/github/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}
-{% endif %}
-{%- if cookiecutter.codacy == 'yes' %}
-.. |codacy| image:: https://img.shields.io/codacy/grade/{{ cookiecutter.codacy_projectid }}.svg
-    :target: https://www.codacy.com/app/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}
-    :alt: Codacy Code Quality Status
-{% endif %}
 {%- if cookiecutter.codeclimate == 'yes' %}
 .. |codeclimate| image:: https://codeclimate.com/github/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/badges/gpa.svg
    :target: https://codeclimate.com/github/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}
@@ -59,12 +52,12 @@ Overview
 {% endif %}
 .. |commits-since| image:: https://img.shields.io/github/commits-since/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/v{{ cookiecutter.version }}.svg
     :alt: Commits since latest release
-    :target: https://{{ cookiecutter.repo_hosting_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/compare/v{{ cookiecutter.version }}...master
+    :target: https://github.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}/compare/v{{ cookiecutter.version }}...master
 
 .. end-badges
 
 {{ cookiecutter.project_short_description|wordwrap(100) }}
-* Free software: {{ cookiecutter.license }}
+* Free software: MIT
 
 Installation
 ============
