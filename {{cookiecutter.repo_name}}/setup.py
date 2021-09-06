@@ -4,6 +4,8 @@
 from setuptools import setup
 
 {%- if cookiecutter.c_extension_support == 'yes' %}
+from glob import glob
+
 CFLAGS = ''
 LFLAGS = ''
 
